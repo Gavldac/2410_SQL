@@ -2,10 +2,12 @@ package sqlgroupproject;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 
 public class Main {
 private static final String databaseURL = "jdbc:derby:FirstDatabase;create=true";
@@ -50,4 +52,37 @@ private static void printTableData(ResultSet resultSet) throws SQLException {
 	}
 	
 }
+
+/**
+ * Adds a new employee to the Employee Database
+ * @param fName - First Name
+ * @param LName - Last Name
+ * @param title - Job title/Position
+ * @param dob - Date of Birth
+ * @param storeID - Store ID of the new employee
+ * 
+ * @author Edwin Casady
+ */
+public static void addEmployee(String fName, String LName, String title, String dob, int storeID) {
+	
+	Connection connection;
+	try {
+		connection = DriverManager.getConnection(databaseURL);
+		PreparedStatement prep = connection.prepareStatement(Employee.insertData);
+		prep.setString(1, fName);
+		prep.setString(2, LName);
+		prep.setString(3, title);
+		prep.setString(4, dob);
+		prep.setInt(5, storeID);
+		
+		prep.executeUpdate();
+		prep.close();
+		connection.close();
+		
+	} catch (SQLException e) {
+		System.out.println("There was a problem adding a new employee to the Employee Database.");
+		e.printStackTrace();
+	}
+}
+
 }
