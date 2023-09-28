@@ -9,7 +9,7 @@ public class Employee {
 			"CREATE TABLE Employee ("
 			+ "Id  int not null primary key "
 			+ "GENERATED ALWAYS AS IDENTITY "
-			+ "(START WITH 100, INCREMENT BY 1),"
+			+ "(START WITH 100, INCREMENT BY 1) PERSISTED,"
 			+ "FirstName varchar(255),"
 			+ "LastName varchar(255),"
 			+ "JobTitle varchar(255),"
@@ -56,6 +56,8 @@ public class Employee {
 			}
 			System.out.println();
 		}
+		
+	
 		
 	}
 	}

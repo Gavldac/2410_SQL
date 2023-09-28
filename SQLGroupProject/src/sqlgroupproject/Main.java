@@ -2,6 +2,7 @@ package sqlgroupproject;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -26,6 +27,30 @@ private static final String databaseURL = "jdbc:derby:FirstDatabase;create=true"
 			System.out.println("Something went wrong accessing SQL.");
 			e.printStackTrace();
 		}
+	}
+	
+	public static void addEmployee(String fName, String LName, String title, String dob, int storeID) {
+		
+		Connection connection;
+		try {
+			connection = DriverManager.getConnection(databaseURL);
+			PreparedStatement prep = connection.prepareStatement(Employee.insertData);
+			prep.setString(1, fName);
+			prep.setString(2, LName);
+			prep.setString(3, title);
+			prep.setString(4, dob);
+			prep.setInt(5, storeID);
+			
+		} catch (SQLException e) {
+			System.out.println("There was a problem adding a new employee to the Employee Database.");
+			e.printStackTrace();
+		}
+        
+		
+		
+		
+		
+		
 	}
 
 private static void printTableData(ResultSet resultSet) throws SQLException {
